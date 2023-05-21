@@ -74,6 +74,7 @@ public class Main {
                     break;
             }
             System.out.println("Testing");
+            System.out.println("Testing 2");
         }
     }
 }
