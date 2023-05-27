@@ -15,7 +15,7 @@ public class MenuManager {
     }
     public String createMenuCetakBuku(String input){
         //CREATE MENU JENIS ID|TITLE|HARGA|CUSTOMTYPE
-        String[] splitInput = input.split(" ");
+        String[] splitInput = input.split(" ",4);
         String[] splitReq = splitInput[3].split("\\|");
         String id = splitReq[0];
         String customType = "";
@@ -32,20 +32,23 @@ public class MenuManager {
             return "CREATE MENU SUCCESS: "+id+" "+nama;
         }
     }
-
-    public String createMenuFotoKopi(String input){
-        //CREATE MENU JENIS ID|TITLE|HARGA
-        String[] splitInput = input.split(" ",4);
+    public String createMenuFotoKopi(String input) {
+        //CREATE MENU FOTOKOPI M001|A4 MONO|1500|DS
+        String[] splitInput = input.split(" ", 4);
         String[] splitReq = splitInput[3].split("\\|");
         String id = splitReq[0];
-        String nama = splitReq[1];
-        int harga = Integer.parseInt(splitReq[2]);
-        if (menuMap.containsKey(id)){
-            return "CREATE MENU FAILED: "+id+" IS EXISTS";
-        }else {
-            FotoKopi fotoKopi = new FotoKopi(id,nama,harga);
-            menuMap.put(id,fotoKopi);
-            return "CREATE MENU SUCCESS: "+id+" "+nama;
+        String customType = "";
+        if (menuMap.containsKey(id)) {
+            return "CREATE MENU FAILED: " + id + " IS EXISTS";
+        } else {
+            String nama = splitReq[1];
+            int harga = Integer.parseInt(splitReq[2]);
+            if (splitReq.length >= 4) {
+                customType = splitReq[3];
+            }
+            FotoKopi fotoKopi = new FotoKopi(id, nama, harga, customType);
+            menuMap.put(id, fotoKopi);
+            return "CREATE MENU SUCCESS: " + id + " " + nama;
         }
     }
 
